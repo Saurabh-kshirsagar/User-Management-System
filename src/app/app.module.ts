@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],

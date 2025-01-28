@@ -21,7 +21,7 @@ export interface User {
 })
 export class UserListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'email', 'role', 'actions'];
-  dataSource!: MatTableDataSource<User>;
+  dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -30,7 +30,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
     private router: Router,
     private userService: UserService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.dataSource = new MatTableDataSource<User>();
+  }
 
   ngOnInit(): void {
     this.loadUserData(); // Load user data on component initialization
@@ -45,7 +47,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   // Fetch user data from the service
   loadUserData(): void {
     const users: User[] = this.userService.getUsers();
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource.data = users; // Update the data source with new data
   }
 
   // Apply search filter to the table
@@ -84,5 +86,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
   deleteUser(userId: any): void {
     this.userService.deleteUser(userId);
     this.loadUserData();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
